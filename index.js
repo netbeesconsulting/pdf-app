@@ -123,7 +123,8 @@ app.post("/api/addPdfEncryption", async (req, res) => {
                                                 maxBodyLength: Infinity,
                                                 url: 'https://api.pdfrest.com/restricted-pdf',
                                                 headers: {
-                                                    'Api-Key': '4dac909e-f68c-4932-8cb0-b1a913a13339',
+                                                    
+                                                    'Api-Key': 'c9b5d09e-8ec9-4adf-a1fa-b4a936624583',
                                                     ...data.getHeaders()
                                                 },
                                                 data: data
