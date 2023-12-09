@@ -59,7 +59,7 @@ app.post("/api/addPdfEncryption", async (req, res) => {
                     .then((response) => {
                         console.log('PDF downloaded successfully');
                         const serverPath = `watermark/${downloadedFileName}_watermark.pdf`;
-                        const apiUrl = 'https://v2.convertapi.com/convert/pdf/to/encrypt?Secret=bGCbMAfvzNQQWSCj';
+                        const apiUrl = 'https://v2.convertapi.com/convert/pdf/to/encrypt?Secret=Ltp5jY5XAyFl5okz';
                         const base64FileContent = fs.readFileSync(serverPath, 'base64');
                         const requestData = {
                             Parameters: [
@@ -124,7 +124,7 @@ app.post("/api/addPdfEncryption", async (req, res) => {
                                                 url: 'https://api.pdfrest.com/restricted-pdf',
                                                 headers: {
                                                     
-                                                    'Api-Key': 'c9b5d09e-8ec9-4adf-a1fa-b4a936624583',
+                                                    'Api-Key': 'f730e952-700f-4cc1-b7f7-a6e142d462b7',
                                                     ...data.getHeaders()
                                                 },
                                                 data: data
