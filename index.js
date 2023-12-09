@@ -18,21 +18,6 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-
-const apiKey = ' 036e78bc-f82c-407c-82c1-7c1b8350a5d0';
-const a2pClient = new Api2Pdf(apiKey);
-const outputFilePath = 'watermark/outputWithAddWatermark.pdf';
-const serverUrl = 'https://pdf.netbees.com.sg/netbeespdf';
-const currentDate = getCurrentDate();
-
-function getCurrentDate() {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-}
-
 app.post("/api/addPdfEncryption", async (req, res) => {
     const { pdfUrl, user_email, product_id, licensed_number, customer_name, purchase_date } = req.body;
 
@@ -47,11 +32,18 @@ app.post("/api/addPdfEncryption", async (req, res) => {
         responseType: 'stream',
     })
         .then(response => {
+            const destinationFolder = './downloads';
+            const urlObject = new URL(pdfUrl);
+            const Newfilename = path.basename(urlObject.pathname);
+
+            const filePath = path.join(destinationFolder, Newfilename);
+
             const downloadedFileName = `Order_${licensed_number}_licensed_to_${customer_name}_on_${purchase_date}`;
             const createdFileName = `/downloads/${downloadedFileName}_Downloded.pdf`;
             const downloadPath = path.join(__dirname, createdFileName);
             const writerStream = fs.createWriteStream(downloadPath);
             response.data.pipe(writerStream);
+
             writerStream.on('close', () => {
                 console.log(`PDF downloaded successfully to: ${downloadPath}`);
                 const watermarkText = file_name2;
@@ -101,13 +93,13 @@ app.post("/api/addPdfEncryption", async (req, res) => {
                                         var file_name = `Order_${licensed_number}_licensed_to_${customer_name}_on_${purchase_date}`;
                                         var folder = 'final';
                                         var fullPath = folder + '/' + file_name + '.pdf';
-                                        
+
                                         delay(500);
                                         //start api 2 callback --------------------------------
                                         setTimeout(() => {
                                             const data = new FormData();
                                             data.append("file", fs.createReadStream(fullPath))
-                                            data.append("new_permissions_password", "123456")
+                                            data.append("new_permissions_password", "718261649")
                                             data.append("restrictions[]", "print_low")
                                             data.append("restrictions[]", "print_high")
                                             data.append("restrictions[]", "edit_document_assembly")
@@ -117,13 +109,12 @@ app.post("/api/addPdfEncryption", async (req, res) => {
                                             data.append("restrictions[]", "copy_content")
                                             data.append("restrictions[]", "accessibility_off")
                                             data.append("current_open_password", user_email)
-                                            data.append("output", file_name)
+                                            data.append("output", Newfilename)
                                             const config = {
                                                 method: 'post',
                                                 maxBodyLength: Infinity,
                                                 url: 'https://api.pdfrest.com/restricted-pdf',
                                                 headers: {
-                                                    
                                                     'Api-Key': 'f730e952-700f-4cc1-b7f7-a6e142d462b7',
                                                     ...data.getHeaders()
                                                 },
@@ -159,7 +150,7 @@ app.post("/api/addPdfEncryption", async (req, res) => {
 });
 
 function delay(time) {
-  return new Promise(resolve => setTimeout(resolve, time));
+    return new Promise(resolve => setTimeout(resolve, time));
 }
 
 async function addWatermark(downloadPath, downloadedFileName, watermarkText) {
@@ -171,6 +162,9 @@ async function addWatermark(downloadPath, downloadedFileName, watermarkText) {
         for (const page of pages) {
             const { width, height } = page.getSize();
             const watermarkTextSize = 10;
+
+            // const x = width / 2 - (watermarkText.length * watermarkTextSize / 4); 
+            // const y = 9;
 
             page.drawText(watermarkText, {
                 x: 50,
