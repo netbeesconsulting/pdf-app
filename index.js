@@ -12,7 +12,7 @@ const port = process.env.PORT || 5001;
 const fs2 = require('fs').promises;
 const { PDFDocument, rgb } = require('pdf-lib');
 const url = require('url');
-
+const { logError } = require('./logger');
 
 app.use(cors());
 
@@ -131,6 +131,7 @@ app.post("/api/addPdfEncryption", async (req, res) => {
                                                     res.json(response.data);
                                                 })
                                                 .catch(function (error) {
+                                                    logError(error);
                                                     console.log(error);
                                                 });
                                         }, 100)
@@ -138,12 +139,14 @@ app.post("/api/addPdfEncryption", async (req, res) => {
                                 });
                             })
                             .catch(error => {
+                                logError('Error:'+error.message);
                                 console.error('Error:', error.response ? error.response.data : error.message);
                             });
                     })
             });
         })
         .catch(error => {
+            logError('Error downloading PDF:'+error.message);
             console.error('Error downloading PDF:', error.message);
         });
 
@@ -193,6 +196,7 @@ async function addWatermark(downloadPath, downloadedFileName, watermarkText) {
         console.log('Watermark added successfully!');
     } catch (error) {
         console.error('Error adding watermark:', error);
+        logError('Error adding watermark:'+error.message);
     }
 }
 
