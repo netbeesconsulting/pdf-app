@@ -1,4 +1,4 @@
-const fs = require('fs-extra');
+const fs = require('fs');
 const path = require('path');
 
 // Function to get current timestamp in a readable format
@@ -7,23 +7,30 @@ function getTimestamp() {
     return now.toISOString().replace(/T/, ' ').replace(/\..+/, '');
 }
 
-// Function to create a new folder and log file if not existing and write error log
-async function logError(error) {
+// Function to log error to a single file, creating it if it doesn't exist
+function logError(error) {
     const timestamp = getTimestamp();
-    const date = new Date();
-    const folderName = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-    const folderPath = path.join(__dirname, 'logs', folderName);
-
-    // Ensure the folder exists
-    await fs.ensureDir(folderPath);
-
-    const fileName = `${folderName}-${date.getHours().toString().padStart(2, '0')}-${date.getMinutes().toString().padStart(2, '0')}-${date.getSeconds().toString().padStart(2, '0')}.txt`;
-    const filePath = path.join(folderPath, fileName);
-
     const logMessage = `[${timestamp}] ${error}\n`;
+    const logFilePath = path.join(__dirname, 'error-log.txt');
 
-    // Append error log to the file
-    await fs.appendFile(filePath, logMessage, 'utf8');
+    // Check if the log file exists, create it if it doesn't
+    fs.access(logFilePath, fs.constants.F_OK, (err) => {
+        if (err) {
+            // File does not exist, create it and write the first log entry
+            fs.writeFile(logFilePath, logMessage, 'utf8', (writeErr) => {
+                if (writeErr) {
+                    console.error('Failed to create log file:', writeErr);
+                }
+            });
+        } else {
+            // File exists, append the log entry
+            fs.appendFile(logFilePath, logMessage, 'utf8', (appendErr) => {
+                if (appendErr) {
+                    console.error('Failed to append to log file:', appendErr);
+                }
+            });
+        }
+    });
 }
 
 module.exports = { logError };
