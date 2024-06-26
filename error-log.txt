@@ -1,3 +1,5 @@
 [2024-05-23 17:14:44] Error downloading PDF:Request failed with status code 404
 [2024-05-23 17:17:52] Error downloading PDF:Request failed with status code 404
 [2024-05-23 17:18:12] Error downloading PDF:Request failed with status code 404
+[2024-06-26 09:35:00] Error downloading PDF:connect ETIMEDOUT 2620:127:f00f:ff01:::443
+[2024-06-26 09:35:52] Error downloading PDF:connect ETIMEDOUT 2620:127:f00f:ff01:::443
