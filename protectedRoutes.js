@@ -53,6 +53,8 @@ module.exports = (tokens) => {
 
         if (!pdfUrl || !user_email || !product_id || !licensed_number || !customer_name || !purchase_date) {
             return res.status(400).json({ error: "Data is missing" });
+        }else if(req.user.email !== user_email){
+            return res.status(400).json({ error: "Email does not match the entered token please check the email ID or token" });
         }
 
         var file_name2 = `Order ${licensed_number} licensed to ${customer_name} on ${purchase_date}`;
