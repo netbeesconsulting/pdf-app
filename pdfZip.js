@@ -74,7 +74,7 @@ async function pdfZipDownload(NewUrlPdf, pdfUrls, urlArray, req, res, FolderName
                 fileMap.set(token, { path: zipFilePath, name: zipFileName });
                 console.log(archive.pointer() + ' total bytes');
                 console.log('archiver has been finalized and the output file descriptor has closed.');
-                const downloadUrl = `http://localhost:${PORT}/download-zip/${token}`;
+                const downloadUrl = `https://pdf-multi-app-token-84b6155775ba.herokuapp.com/download-zip/${token}`;
                 pdfFiles.forEach(file => fs.unlinkSync(file.path));
 
                 res.json({ message: 'PDF files downloaded and zipped successfully', downloadUrl });
