@@ -1,3 +1,27 @@
 [2024-05-23 17:14:44] Error downloading PDF:Request failed with status code 404
 [2024-05-23 17:17:52] Error downloading PDF:Request failed with status code 404
 [2024-05-23 17:18:12] Error downloading PDF:Request failed with status code 404
+[2024-06-26 09:35:00] Error downloading PDF:connect ETIMEDOUT 2620:127:f00f:ff01:::443
+[2024-06-26 09:35:52] Error downloading PDF:connect ETIMEDOUT 2620:127:f00f:ff01:::443
+[2024-06-27 11:37:33] ReferenceError: res is not defined
+[2024-06-27 17:40:43] Error: connect ECONNREFUSED ::1:80
+[2024-06-27 17:40:52] Error: connect ECONNREFUSED ::1:80
+[2024-06-27 17:40:53] AxiosError: Request failed with status code 400
+[2024-06-27 17:41:05] Error: connect ECONNREFUSED ::1:80
+[2024-06-27 17:52:50] Error: connect ECONNREFUSED ::1:80
+[2024-06-27 17:52:57] Error: connect ECONNREFUSED ::1:80
+[2024-06-27 18:06:48] Error:aborted
+[2024-06-27 18:14:36] Error adding watermark:Failed to parse PDF document (line:702 col:4455 offset=4489786): Failed to parse invalid PDF object
+[2024-06-27 18:14:52] AxiosError: Request failed with status code 400
+[2024-06-27 18:15:58] Error adding watermark:Cannot read properties of undefined (reading 'Pages')
+[2024-06-27 18:16:11] AxiosError: Request failed with status code 400
+[2024-06-27 18:20:14] Error adding watermark:Failed to parse PDF document (line:1013 col:1610 offset=406235): Failed to parse invalid PDF object
+[2024-06-27 18:23:37] Error adding watermark:Failed to parse PDF document (line:682 col:294 offset=2345052): Failed to parse invalid PDF object
+[2024-06-27 18:23:39] Error adding watermark:Expected instance of PDFDict, but got instance of PDFRawStream
+[2024-06-27 18:35:26] Error adding watermark:Failed to parse PDF document (line:548 col:9805 offset=680837): Failed to parse invalid PDF object
+[2024-06-27 18:43:18] Error adding watermark:Failed to parse PDF document (line:267 col:7459 offset=542727): Failed to parse invalid PDF object
+[2024-06-27 18:43:39] Error:aborted
+[2024-06-27 18:43:40] Error:aborted
+[2024-06-27 18:45:33] Error:aborted
+[2024-06-29 07:24:06] ReferenceError: writerNew is not defined
+[2024-06-29 07:24:14] ReferenceError: writerNew is not defined
